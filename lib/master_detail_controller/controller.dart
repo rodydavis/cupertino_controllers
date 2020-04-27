@@ -77,16 +77,17 @@ class CupertinoMasterDetailController extends StatelessWidget {
           Flexible(
             flex: orientation == Orientation.landscape ? 1 : 2,
             child: Scaffold(
-              appBar: appBar,
-              body: _ItemListing(
-                onEmpty: onEmpty,
-                onNull: onNull,
-                itemBuilder: itemBuilder,
-                items: items,
-                selectedItem: selectedItem,
-                itemSelectedCallback: itemSelected,
-              ),
-            ),
+                appBar: appBar,
+                body: CustomScrollView(slivers: [
+                  _ItemListing(
+                    onEmpty: onEmpty,
+                    onNull: onNull,
+                    itemBuilder: itemBuilder,
+                    items: items,
+                    selectedItem: selectedItem,
+                    itemSelectedCallback: itemSelected,
+                  ),
+                ])),
           ),
           Container(
             width: 1.0,
