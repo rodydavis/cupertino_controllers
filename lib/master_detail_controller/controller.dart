@@ -8,7 +8,8 @@ typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
 class CupertinoMasterDetailController extends StatelessWidget {
   final ItemWidgetBuilder detailBuilder;
   final IndexedWidgetBuilder itemBuilder;
-  final Widget? onNull, onEmpty, appBar;
+  final Widget? onNull, onEmpty;
+  final PreferredSizeWidget? appBar;
   final dynamic selectedItem;
   final ValueChanged<dynamic> itemSelected;
   final List<dynamic> items;
@@ -31,8 +32,6 @@ class CupertinoMasterDetailController extends StatelessWidget {
                 semanticChildCount: items.length,
                 slivers: <Widget>[
           CupertinoSliverNavigationBar(
-//            trailing: trailingButtons,
-//            middle: Text("Presidents"),
             largeTitle: Text("Presidents"),
           ),
           _ItemListing(
@@ -50,24 +49,6 @@ class CupertinoMasterDetailController extends StatelessWidget {
             },
           ),
         ])));
-
-//    return Scaffold(
-//      appBar: appBar,
-//      body: _ItemListing(
-//        onEmpty: onEmpty,
-//        onNull: onNull,
-//        itemBuilder: itemBuilder,
-//        items: items,
-//        selectedItem: selectedItem,
-//        itemSelectedCallback: (item) {
-//          Navigator.push(
-//            context,
-//            MaterialPageRoute(
-//                builder: (context) => detailBuilder(context, item, false)),
-//          );
-//        },
-//      ),
-//    );
   }
 
   Widget _buildTabletLayout(BuildContext context) {
