@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 
 class CupertinoSearchBar extends AnimatedWidget {
   const CupertinoSearchBar({
-    Key key,
-    this.controller,
-    this.focusNode,
+    Key? key,
+    required this.controller,
+    required this.focusNode,
     this.onCancel,
     this.onChanged,
     this.onSubmitted,
     this.autoFocus = false,
-    this.animation,
+    required this.animation,
     this.onClear,
     this.enabled = true,
     this.autoCorrect = true,
@@ -20,8 +20,8 @@ class CupertinoSearchBar extends AnimatedWidget {
 
   final TextEditingController controller;
   final FocusNode focusNode;
-  final ValueChanged<String> onChanged, onSubmitted;
-  final VoidCallback onCancel, onClear;
+  final ValueChanged<String>? onChanged, onSubmitted;
+  final VoidCallback? onCancel, onClear;
   final bool autoFocus, enabled, autoCorrect;
   final Animation<double> animation;
 
@@ -117,7 +117,7 @@ class CupertinoSearchBar extends AnimatedWidget {
                           if (animation.isDismissed)
                             return;
                           else
-                            onClear();
+                            onClear!();
                         },
                       ),
                     ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_slidable/flutter_slidable.dart' as slidable;
 
 import 'templates/avatar_tile.dart';
 import 'templates/base_tile.dart';
@@ -12,22 +12,21 @@ class CupertinoTableCell extends StatelessWidget {
   final bool canEdit;
   final bool canDelete;
   final bool lastItem;
-  final Widget child;
+  final Widget? child;
   final String id;
-  final VoidCallback onDelete, onTap;
-  final SlidableController slideableController;
-  final List<IconSlideAction> leadingActions, trailingActions;
-  final ValueChanged<bool> onSelected;
+  final VoidCallback? onDelete, onTap;
+  final List<slidable.IconSlideAction>? leadingActions, trailingActions;
+  final ValueChanged<bool>? onSelected;
 
   // -- Styling --
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap;
+  final VoidCallback? accessoryTap;
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
-  final VoidCallback editingAccessoryTap;
+  final VoidCallback? editingAccessoryTap;
 
   const CupertinoTableCell({
-    Key key,
+    Key? key,
     this.selected = false,
     this.canEdit = true,
     this.canDelete = true,
@@ -37,7 +36,7 @@ class CupertinoTableCell extends StatelessWidget {
     this.leadingActions,
     this.onTap,
     this.child,
-    @required this.id,
+    required this.id,
     this.onDelete,
     this.onSelected,
     this.accessory = CupertinoAccessory.disclosureIndicator,
@@ -45,7 +44,6 @@ class CupertinoTableCell extends StatelessWidget {
     this.editingAccessoryTap,
     this.editingAccessory = CupertinoEditingAccessory.none,
     this.editingAction = CupertinoEditingAction.select,
-    this.slideableController,
   }) : super(key: key);
 
   @override
@@ -65,10 +63,10 @@ class CupertinoTableCell extends StatelessWidget {
       editingActionTap: () {
         switch (editingAction) {
           case CupertinoEditingAction.remove:
-            onDelete();
+            onDelete!();
             break;
           case CupertinoEditingAction.select:
-            onSelected(!selected);
+            onSelected!(!selected);
             break;
           default:
         }
@@ -81,13 +79,13 @@ class CupertinoTableCell extends StatelessWidget {
           onTapDown: (TapDownDetails details) {
             if (!editing) {
               print("On Tap Down..");
-              onSelected(true);
+              onSelected!(true);
             }
           },
           onTapCancel: () {
             if (!editing) {
               print("On Tap Cancel..");
-              onSelected(false);
+              onSelected!(false);
             }
           },
           child: CupertinoListTile(
@@ -98,11 +96,11 @@ class CupertinoTableCell extends StatelessWidget {
             lastItem: lastItem,
             onTap: () {
               if (!editing) {
-                onSelected(false);
-                onTap();
+                onSelected!(false);
+                onTap!();
               } else {
                 print("On Tap Down..");
-                onSelected(!selected);
+                onSelected!(!selected);
               }
             },
           ),
@@ -112,12 +110,12 @@ class CupertinoTableCell extends StatelessWidget {
         _child = GestureDetector(
           onTapDown: (TapDownDetails details) {
             if (!editing) {
-              onSelected(true);
+              onSelected!(true);
             }
           },
           onTapCancel: () {
             if (!editing) {
-              onSelected(false);
+              onSelected!(false);
             }
           },
           child: CupertinoListTile(
@@ -129,8 +127,8 @@ class CupertinoTableCell extends StatelessWidget {
             onTap: () {
               if (!editing) {
                 print("Item Tapped...");
-                onSelected(false);
-                onTap();
+                onSelected!(false);
+                onTap!();
               }
             },
           ),
@@ -146,8 +144,8 @@ class CupertinoTableCell extends StatelessWidget {
           onTap: () {
             if (!editing) {
               print("Item Tapped...");
-              onSelected(false);
-              onTap();
+              onSelected!(false);
+              onTap!();
             }
           },
         );
@@ -156,28 +154,21 @@ class CupertinoTableCell extends StatelessWidget {
     final List<Widget> _trailingActions = <Widget>[];
 
     if (trailingActions != null) {
-      _trailingActions..addAll(trailingActions);
+      _trailingActions..addAll(trailingActions!);
     }
 
     _trailingActions.add(
-      new IconSlideAction(
+      slidable.IconSlideAction(
         caption: 'Delete',
         color: Colors.red,
         icon: Icons.delete,
-        onTap: onDelete,
+        onTap: onDelete!,
       ),
     );
 
-    return Slidable(
+    return slidable.Slidable(
       key: key,
-      controller: slideableController,
-      dismissal: SlidableDismissal(
-        child: SlidableDrawerDismissal(),
-        onDismissed: (actionType) {
-          onDelete();
-        },
-      ),
-      actionPane: SlidableDrawerActionPane(),
+      actionPane: slidable.SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
       child: _child,
       actions: leadingActions,
@@ -187,12 +178,12 @@ class CupertinoTableCell extends StatelessWidget {
 }
 
 class CupertinoListTile extends StatelessWidget {
-  final Text subtitle, title, id;
-  final Widget avatar, child;
-  final List<Widget> trailing;
-  final IconData leading;
-  final CupertinoListTileData ios;
-  final VoidCallback onTap, onLongPressed;
+  final Text? subtitle, title, id;
+  final Widget? avatar, child;
+  final List<Widget>? trailing;
+  final IconData? leading;
+  final CupertinoListTileData? ios;
+  final VoidCallback? onTap, onLongPressed;
   final bool selected, editing;
   final bool lastItem;
 
@@ -217,7 +208,7 @@ class CupertinoListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget _child = Container();
 
-    switch (ios?.style) {
+    switch (ios?.style ?? CupertinoCellStyle.custom) {
       case CupertinoCellStyle.avatarDetail:
         _child = CupertinoAvatarListTile(
           avatar: avatar,
@@ -237,18 +228,21 @@ class CupertinoListTile extends StatelessWidget {
         break;
       case CupertinoCellStyle.basic:
         _child = CupertinoTextMenu(
-          children: <Widget>[title]..addAll(trailing ?? []),
+          children: <Widget?>[title]..addAll(trailing ?? []),
         );
         break;
 
       case CupertinoCellStyle.leftDetail:
         _child = Row(
-          children: <Widget>[subtitle, title],
+          children: <Widget>[
+            ...[subtitle ?? Container()],
+            ...[title ?? Container()],
+          ],
         );
         break;
       case CupertinoCellStyle.rightDetail:
         _child = CupertinoTextMenu(
-          children: <Widget>[title, subtitle],
+          children: <Widget?>[title, subtitle],
         );
         break;
       case CupertinoCellStyle.custom:
@@ -292,9 +286,9 @@ class CupertinoListTileData {
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap, editingAccessoryTap, editingActionTap;
+  final VoidCallback? accessoryTap, editingAccessoryTap, editingActionTap;
   final bool hideLeadingIcon, enableReorder;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   CupertinoListTileData({
     this.style = CupertinoCellStyle.custom,

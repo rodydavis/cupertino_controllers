@@ -7,7 +7,7 @@ class CupertinoBaseTile extends StatelessWidget {
   const CupertinoBaseTile({
     this.selected = false,
     this.editing = false,
-    @required this.child,
+    required this.child,
     this.accessory = CupertinoAccessory.none,
     this.editingAccessory = CupertinoEditingAccessory.none,
     this.editingAction = CupertinoEditingAction.remove,
@@ -21,11 +21,11 @@ class CupertinoBaseTile extends StatelessWidget {
 
   final bool editing, selected;
   final Widget child;
-  final EdgeInsets padding;
-  final CupertinoEditingAction editingAction;
-  final CupertinoEditingAccessory editingAccessory;
-  final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap,
+  final EdgeInsets? padding;
+  final CupertinoEditingAction? editingAction;
+  final CupertinoEditingAccessory? editingAccessory;
+  final CupertinoAccessory? accessory;
+  final VoidCallback? accessoryTap,
       onTap,
       onLongPressed,
       editingAccessoryTap,
@@ -36,7 +36,7 @@ class CupertinoBaseTile extends StatelessWidget {
     final List<Widget> _widgets = <Widget>[];
 
     if (editing) {
-      if (editingAccessory != null)
+      if (editingAccessory != null) {
         switch (editingAccessory) {
           case CupertinoEditingAccessory.disclosureIndicator:
             _widgets
@@ -78,9 +78,11 @@ class CupertinoBaseTile extends StatelessWidget {
                 onPressed: () {},
               ));
             break;
+          case null:
           case CupertinoEditingAccessory.none:
             break;
         }
+      }
     } else {
       if (accessory != null)
         switch (accessory) {
@@ -107,12 +109,13 @@ class CupertinoBaseTile extends StatelessWidget {
           case CupertinoAccessory.checkmark:
             _widgets..add(const Icon(CupertinoIcons.check_mark));
             break;
+          case null:
           case CupertinoAccessory.none:
             break;
         }
     }
 
-    Widget _editingAction;
+    Widget? _editingAction;
 
     if (editingAction != null) {
       switch (editingAction) {
@@ -156,13 +159,14 @@ class CupertinoBaseTile extends StatelessWidget {
             ),
           );
           break;
+        case null:
         case CupertinoEditingAction.none:
           _editingAction = null;
           break;
       }
     }
 
-    Color _rowColor = Colors.transparent;
+    Color? _rowColor = Colors.transparent;
 
     if (selected && editing) {
       _rowColor = Colors.lightBlue[50];
@@ -191,7 +195,7 @@ class CupertinoBaseTile extends StatelessWidget {
                 child: editing ? _editingAction : null,
               ),
               Expanded(child: child),
-            ]..addAll(_widgets ?? <Widget>[]),
+            ]..addAll(_widgets),
           ),
         ),
       ),
