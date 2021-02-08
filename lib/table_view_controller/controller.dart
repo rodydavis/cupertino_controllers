@@ -144,10 +144,11 @@ class CupertinoTableViewController extends StatelessWidget {
       child: Scaffold(
         body: CustomScrollView(
           primary: true,
-          slivers: []
-            ..addAll(_searchNavBar)
-            ..addAll(_widgets)
-            ..addAll(_sections),
+          slivers: [
+            ..._searchNavBar,
+            ..._widgets,
+            ..._sections,
+          ],
         ),
         persistentFooterButtons: toolbarButtons,
       ),

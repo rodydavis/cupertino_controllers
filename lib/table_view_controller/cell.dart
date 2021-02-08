@@ -15,7 +15,6 @@ class CupertinoTableCell extends StatelessWidget {
   final Widget child;
   final String id;
   final VoidCallback onDelete, onTap;
-  final SlidableController slideableController;
   final List<IconSlideAction> leadingActions, trailingActions;
   final ValueChanged<bool> onSelected;
 
@@ -45,7 +44,6 @@ class CupertinoTableCell extends StatelessWidget {
     this.editingAccessoryTap,
     this.editingAccessory = CupertinoEditingAccessory.none,
     this.editingAction = CupertinoEditingAction.select,
-    this.slideableController,
   }) : super(key: key);
 
   @override
@@ -160,7 +158,7 @@ class CupertinoTableCell extends StatelessWidget {
     }
 
     _trailingActions.add(
-      new IconSlideAction(
+      IconSlideAction(
         caption: 'Delete',
         color: Colors.red,
         icon: Icons.delete,
@@ -170,13 +168,6 @@ class CupertinoTableCell extends StatelessWidget {
 
     return Slidable(
       key: key,
-      controller: slideableController,
-      dismissal: SlidableDismissal(
-        child: SlidableDrawerDismissal(),
-        onDismissed: (actionType) {
-          onDelete();
-        },
-      ),
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
       child: _child,
