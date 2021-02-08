@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 enum CupertinoTextTheme { title, subtitle, detail, custom }
 
 class CupertinoText extends StatelessWidget {
-  final String data;
-  final TextStyle style;
+  final String? data;
+  final TextStyle? style;
   final int maxLines;
   final CupertinoTextTheme type;
 
   const CupertinoText(
     this.data, {
-    Key key,
+    Key? key,
     this.style,
     this.maxLines = 1,
     this.type = CupertinoTextTheme.detail,
@@ -22,7 +22,7 @@ class CupertinoText extends StatelessWidget {
     switch (type) {
       case CupertinoTextTheme.title:
         return Text(
-          data,
+          data!,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
@@ -32,7 +32,7 @@ class CupertinoText extends StatelessWidget {
         );
       case CupertinoTextTheme.subtitle:
         return Text(
-          data,
+          data!,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
@@ -43,7 +43,7 @@ class CupertinoText extends StatelessWidget {
         );
       case CupertinoTextTheme.detail:
         return Text(
-          data,
+          data!,
           style: const TextStyle(
             color: CupertinoColors.inactiveGray,
             fontSize: 15.0,
@@ -52,7 +52,7 @@ class CupertinoText extends StatelessWidget {
         );
       case CupertinoTextTheme.custom:
         return Text(
-          data,
+          data!,
           style: style ??
               const TextStyle(
                 color: CupertinoColors.inactiveGray,

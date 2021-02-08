@@ -1,3 +1,7 @@
+## 1.0.0-nullsafety
+
+* Null Safety
+
 ## 0.1.0 - 04.06.2019
 
 * Updating Example for Desktop

@@ -5,14 +5,14 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 typedef RefreshCallback = Future<void> Function();
 
 class CupertinoTableViewController extends StatelessWidget {
-  final String title, previousTitle;
-  final Widget leading, trailing;
-  final ValueChanged<bool> onEditing;
-  final RefreshCallback onRefresh;
+  final String? title, previousTitle;
+  final Widget? leading, trailing;
+  final ValueChanged<bool>? onEditing;
+  final RefreshCallback? onRefresh;
   final bool showEditingButtonLeft, showEditingButtonRight, hideAppBarOnSearch;
   final bool isEditing, isSearching;
   final List<CupertinoTableViewSection> sections;
-  final List<Widget> widgets, toolbarButtons;
+  final List<Widget>? widgets, toolbarButtons;
 
   CupertinoTableViewController({
     this.previousTitle,
@@ -44,8 +44,8 @@ class CupertinoTableViewController extends StatelessWidget {
     this.isSearching = false,
     this.isEditing = false,
     this.onEditing,
-    @required IndexedWidgetBuilder itemBuilder,
-    int itemCount,
+    required IndexedWidgetBuilder itemBuilder,
+    int? itemCount,
     this.widgets,
     this.showEditingButtonLeft = true,
     this.showEditingButtonRight = false,
@@ -71,7 +71,7 @@ class CupertinoTableViewController extends StatelessWidget {
     this.showEditingButtonLeft = true,
     this.showEditingButtonRight = false,
     this.toolbarButtons,
-    @required this.sections,
+    required this.sections,
     this.widgets,
   }) : assert(showEditingButtonLeft != showEditingButtonRight);
 
@@ -81,7 +81,7 @@ class CupertinoTableViewController extends StatelessWidget {
       padding: EdgeInsets.only(top: 10.0),
       child: CupertinoTableViewEditingButton(
         isEditing: isEditing,
-        onPressed: () => onEditing(!isEditing),
+        onPressed: () => onEditing!(!isEditing),
       ),
     );
 
@@ -107,40 +107,38 @@ class CupertinoTableViewController extends StatelessWidget {
     final _widgets = <Widget>[];
 
     if (widgets != null) {
-      for (Widget _widget in widgets) {
+      for (Widget _widget in widgets!) {
         _widgets.add(SliverToBoxAdapter(child: _widget));
       }
     }
 
     final _sections = <Widget>[];
 
-    if (sections != null) {
-      int _index = 0;
-      for (CupertinoTableViewSection _section in sections) {
-        _sections.add(new SliverStickyHeader(
-          header: _section?.header == null
-              ? null
-              : new Container(
-                  color: CupertinoColors.lightBackgroundGray,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 5.0),
-                  alignment: Alignment.centerLeft,
-                  child: _section.header,
-                ),
-          sliver: SliverSafeArea(
-            top: false,
-            bottom: sections?.length == _index + 1,
-            sliver: SliverList(
-              delegate: _section.childrenDelegate,
-            ),
+    int _index = 0;
+    for (CupertinoTableViewSection _section in sections) {
+      _sections.add(new SliverStickyHeader(
+        header: _section.header == null
+            ? null
+            : new Container(
+                color: CupertinoColors.lightBackgroundGray,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
+                alignment: Alignment.centerLeft,
+                child: _section.header,
+              ),
+        sliver: SliverSafeArea(
+          top: false,
+          bottom: sections.length == _index + 1,
+          sliver: SliverList(
+            delegate: _section.childrenDelegate,
           ),
-        ));
-        _index++;
-      }
+        ),
+      ));
+      _index++;
     }
 
     return DefaultTextStyle(
-      style: Theme.of(context).textTheme.title,
+      style: Theme.of(context).textTheme.title!,
       child: Scaffold(
         body: CustomScrollView(
           primary: true,
@@ -157,8 +155,8 @@ class CupertinoTableViewController extends StatelessWidget {
 }
 
 class CupertinoTableViewEditingButton extends StatelessWidget {
-  final bool isEditing;
-  final VoidCallback onPressed;
+  final bool? isEditing;
+  final VoidCallback? onPressed;
 
   const CupertinoTableViewEditingButton({
     this.isEditing,
@@ -167,7 +165,7 @@ class CupertinoTableViewEditingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isEditing) {
+    if (isEditing!) {
       return GestureDetector(
         onTap: onPressed,
         child: const Text("Cancel",
@@ -189,7 +187,7 @@ class CupertinoTableViewEditingButton extends StatelessWidget {
 
 // Todo; Seconts for Tableview
 class CupertinoTableViewSection {
-  final Widget header;
+  final Widget? header;
   final SliverChildDelegate childrenDelegate;
 
   CupertinoTableViewSection({
@@ -207,8 +205,8 @@ class CupertinoTableViewSection {
 
   CupertinoTableViewSection.builder({
     this.header,
-    @required IndexedWidgetBuilder itemBuilder,
-    int itemCount,
+    required IndexedWidgetBuilder itemBuilder,
+    int? itemCount,
     bool addAutomaticKeepAlives = true,
     bool addRepaintBoundaries = true,
     bool addSemanticIndexes = true,

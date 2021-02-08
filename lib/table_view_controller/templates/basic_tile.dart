@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class CupertinoTextMenu extends StatelessWidget {
   final bool lastItem;
-  final List<Widget> children;
+  final List<Widget?> children;
 
   CupertinoTextMenu({
-    @required this.children,
+    required this.children,
     this.lastItem = false,
   });
 
@@ -27,7 +27,7 @@ class CupertinoTextMenu extends StatelessWidget {
           bottom: false,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: children,
+            children: children as List<Widget>,
           ),
         ),
       ),
