@@ -1,3 +1,8 @@
+## 1.0.2-nullsafety
+
+* Controller updates
+* Merge from master
+
 ## 1.0.1-nullsafety
 
 * Added Online Demo
