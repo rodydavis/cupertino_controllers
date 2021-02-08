@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import '../../widgets/text.dart';
 
 class CupertinoPhoneListTile extends StatelessWidget {
-  final String subtitle, title;
-  final List<Widget> actions;
-  final IconData icon;
-  final bool hideLeadingIcon;
+  final String? subtitle, title;
+  final List<Widget>? actions;
+  final IconData? icon;
+  final bool? hideLeadingIcon;
 
   const CupertinoPhoneListTile({
     this.actions,
     this.subtitle,
-    @required this.title,
+    required this.title,
     this.icon,
     this.hideLeadingIcon = true,
   });
@@ -28,8 +28,8 @@ class CupertinoPhoneListTile extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              width: hideLeadingIcon ? 12.0 : 38.0,
-              child: icon != null && !hideLeadingIcon
+              width: hideLeadingIcon! ? 12.0 : 38.0,
+              child: icon != null && !hideLeadingIcon!
                   ? Align(
                       alignment: Alignment.center,
                       child: Icon(
@@ -69,8 +69,8 @@ class CupertinoPhoneListTile extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              width: hideLeadingIcon ? 12.0 : 38.0,
-              child: icon != null && !hideLeadingIcon
+              width: hideLeadingIcon! ? 12.0 : 38.0,
+              child: icon != null && !hideLeadingIcon!
                   ? Align(
                       alignment: Alignment.topCenter,
                       child: Icon(

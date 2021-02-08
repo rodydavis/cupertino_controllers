@@ -5,15 +5,15 @@ import '../../widgets/text.dart';
 
 class CupertinoAvatarListTile extends StatelessWidget {
   const CupertinoAvatarListTile({
-    @required this.title,
+    required this.title,
     this.subtitle,
     this.actions,
     this.avatar,
   });
 
-  final Widget avatar;
-  final String title, subtitle;
-  final List<Widget> actions;
+  final Widget? avatar;
+  final String? title, subtitle;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {

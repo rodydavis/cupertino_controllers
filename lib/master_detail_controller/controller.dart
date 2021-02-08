@@ -8,17 +8,17 @@ typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
 class CupertinoMasterDetailController extends StatelessWidget {
   final ItemWidgetBuilder detailBuilder;
   final IndexedWidgetBuilder itemBuilder;
-  final Widget onNull, onEmpty, appBar;
+  final Widget? onNull, onEmpty, appBar;
   final dynamic selectedItem;
   final ValueChanged<dynamic> itemSelected;
   final List<dynamic> items;
 
   CupertinoMasterDetailController({
-    @required this.detailBuilder,
-    @required this.selectedItem,
-    @required this.itemSelected,
-    @required this.itemBuilder,
-    @required this.items,
+    required this.detailBuilder,
+    required this.selectedItem,
+    required this.itemSelected,
+    required this.itemBuilder,
+    required this.items,
     this.appBar,
     this.onNull,
     this.onEmpty,
@@ -28,7 +28,7 @@ class CupertinoMasterDetailController extends StatelessWidget {
     return Scaffold(
         body: CupertinoPageScaffold(
             child: CustomScrollView(
-                semanticChildCount: items?.length ?? 0,
+                semanticChildCount: items.length,
                 slivers: <Widget>[
           CupertinoSliverNavigationBar(
 //            trailing: trailingButtons,
@@ -77,17 +77,16 @@ class CupertinoMasterDetailController extends StatelessWidget {
           Flexible(
             flex: orientation == Orientation.landscape ? 1 : 2,
             child: Scaffold(
-                appBar: appBar,
-                body: CustomScrollView(slivers: [
-                  _ItemListing(
-                    onEmpty: onEmpty,
-                    onNull: onNull,
-                    itemBuilder: itemBuilder,
-                    items: items,
-                    selectedItem: selectedItem,
-                    itemSelectedCallback: itemSelected,
-                  ),
-                ])),
+              appBar: appBar as PreferredSizeWidget?,
+              body: _ItemListing(
+                onEmpty: onEmpty,
+                onNull: onNull,
+                itemBuilder: itemBuilder,
+                items: items,
+                selectedItem: selectedItem,
+                itemSelectedCallback: itemSelected,
+              ),
+            ),
           ),
           Container(
             width: 1.0,
@@ -117,7 +116,7 @@ class CupertinoMasterDetailController extends StatelessWidget {
 
 class _ItemListing extends StatelessWidget {
   _ItemListing({
-    @required this.itemSelectedCallback,
+    required this.itemSelectedCallback,
     this.selectedItem,
     this.itemBuilder,
     this.items,
@@ -127,9 +126,9 @@ class _ItemListing extends StatelessWidget {
 
   final ValueChanged<dynamic> itemSelectedCallback;
   final dynamic selectedItem;
-  final IndexedWidgetBuilder itemBuilder;
-  final List<dynamic> items;
-  final Widget onNull, onEmpty;
+  final IndexedWidgetBuilder? itemBuilder;
+  final List<dynamic>? items;
+  final Widget? onNull, onEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -137,20 +136,20 @@ class _ItemListing extends StatelessWidget {
       return onNull ?? Center(child: CircularProgressIndicator());
     }
 
-    if (items.isEmpty) {
+    if (items!.isEmpty) {
       return onEmpty ?? Center(child: Text("No Items Found"));
     }
 
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
-          final _child = itemBuilder(context, index);
+          final _child = itemBuilder!(context, index);
           return GestureDetector(
-            onTap: () => itemSelectedCallback(items[index]),
+            onTap: () => itemSelectedCallback(items![index]),
             child: _child,
           );
         },
-        childCount: items.length,
+        childCount: items!.length,
       ),
     );
   }
