@@ -3,7 +3,7 @@ description: A Flutter plugin with Cupertino Controller Examples. This includes 
 version: 1.0.2-nullsafety.1
 author: Rhodes Davis Jr. <rody.davis.jr@gmail.com>
 homepage: https://github.com/rodydavis/plugins
-issue_tracker: https://github.com/rodydavis/cupertino_controllers
+repository: https://github.com/rodydavis/cupertino_controllers
 
 environment:
   sdk: '>=2.12.0-259.8.beta < 3.0.0'
