@@ -11,7 +11,7 @@ Online demo [here](https://rodydavis.github.io/cupertino_controllers/)
 
 See Example for Documentation
 
-![](https://github.com/AppleEducate/plugins/blob/master/packages/cupertino_controllers/assets/screenshots/ezgif-4-ddefe3c604fb.gif)
+![](https://github.com/rodydavis/plugins/blob/master/packages/cupertino_controllers/assets/screenshots/ezgif-4-ddefe3c604fb.gif)
 
 Completed:
 - Master Detail Controller
