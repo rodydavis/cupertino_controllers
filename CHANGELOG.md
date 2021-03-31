@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Stable Version
+
 ## 1.0.2-nullsafety
 
 * Controller updates
