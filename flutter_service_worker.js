@@ -6,10 +6,10 @@ const RESOURCES = {
   "manifest.json": "15f73b7e8a8209c2206210b3ac8dea1b",
 "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/NOTICES": "a624e3bf04bf56f082bcdb5f442e9535",
+"assets/NOTICES": "55459694551cfc9d05e4982fb341be4b",
 "assets/AssetManifest.json": "2efbb41d7877d10aac9d091f58ccd7b9",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
-"main.dart.js": "1547b9947449d4f7883c3897dc944176",
+"main.dart.js": "99af497e018d0456b6de363e209779b0",
 "index.html": "99ad062d91413fd6780ddaa5a3a3e20a",
 "/": "99ad062d91413fd6780ddaa5a3a3e20a",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
@@ -33,7 +33,7 @@ self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value, {'cache': 'reload'})));
+        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {'cache': 'reload'})));
     })
   );
 });
